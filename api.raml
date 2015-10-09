@@ -1,0 +1,45 @@
+#%RAML 0.8
+title: Cloud File Storage
+version: 0.1
+baseUri: http://localhost:5999/
+protocols: [HTTP]
+mediaType: application/json
+
+/users:
+  description: users entity
+  get:
+    description: get all users
+  post:
+    description: create new user
+  /{userId}:
+    description: user entity
+    get:
+      description: get one user by its id, 404 if id not found
+    patch:
+      description: change user by its id
+    delete:
+      description: delete user by its id
+
+/assets:
+  description: folder structure
+  get:
+    description: get all assets
+  post:
+    description: create new asset
+  /{assetId}:
+    get:
+      description: get one asset by its id
+    post:
+      description: create new asset
+    patch:
+      description: change asset by its id
+    delete:
+      description: delete asset by its id
+
+/resources:
+  description: checking used resources
+  get:
+    description: get used resources for whole system
+  /{resourceId}:
+    get:
+      description: get used resources for specific resource
