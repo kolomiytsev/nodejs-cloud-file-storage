@@ -9,6 +9,8 @@ mediaType: application/json
   description: users entity
   get:
     description: get all users
+    responses:
+
   post:
     description: create new user
   /{userId}:
@@ -26,15 +28,22 @@ mediaType: application/json
     description: get all assets
   post:
     description: create new asset
-  /{assetId}:
+  /folder/{folderId}:
     get:
-      description: get one asset by its id
+      description: get one folder by its id
     post:
       description: create new asset
-    patch:
-      description: change asset by its id
+    put:
+      description: change folder by its id
     delete:
-      description: delete asset by its id
+      description: delete folder by its id
+  /file/{fileId}:
+    get:
+      description: get one file by its id
+    put:
+      description: change file by its id
+    delete:
+      description: delete file by its id
 
 /resources:
   description: checking used resources
