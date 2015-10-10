@@ -1,18 +1,37 @@
 var mongo = require('./db'),
-    assetColl = mongo.collection('assets');
+    folderColl = mongo.collection('folders'),
+    filesColl = mongo.collection('files'),
+    relationsColl = mongo.collection('relations');
 
-//Asset scheme
+//Folder scheme
 //{
-//“_id”: UUIDv4, required
-//“type”: String, required
-//“title”: String, required
-//“tag”: Array, optional
-//“metadata”: Object, optional
-//“assetId”: UUIDv4, optional
+//"_id": UUIDv4, required
+//"type": String, required
+//"title": String, required
+//"tag": Array, optional
+//"metadata": Object, optional
+//}
+//File scheme
+//{
+//"_id": UUIDv4, required
+//"type": String, required
+//"title": String, required
+//"tag": Array, optional
+//"metadata": Object, optional
+//}
+//Relation scheme
+//{
+//"sourceId": UUIDv4, required
+//"targetId": UUIDv4, required
 //}
 
+exports.getRootFolder = function(callback) {
 
-exports.getAllAssets = function(callback) {
+
+    callback(null, {"_id": "1212","type": "folder", "title": "rootFolder"});
+};
+
+exports.getFolderById = function(callback) {
     //assetColl.find().toArray(function(err, result) {
     //    if (err) {
     //        callback(err);
@@ -21,11 +40,22 @@ exports.getAllAssets = function(callback) {
     //    }
     //});
 
-    callback(null, result);
-
+    callback(null, {});
 };
 
-exports.createAsset = function(assetObj, callback) {
+exports.getFileById = function(callback) {
+    //assetColl.find().toArray(function(err, result) {
+    //    if (err) {
+    //        callback(err);
+    //    } else {
+    //        callback(null, result);
+    //    }
+    //});
+
+    callback(null, {});
+};
+
+exports.createFolder = function(assetObj, callback) {
     //assetColl.insertOne(assetObj, function (err, result) {
     //    if (err) {
     //        callback(err);
@@ -34,22 +64,22 @@ exports.createAsset = function(assetObj, callback) {
     //    }
     //});
 
-    callback(null, result);
+    callback(null, {});
 };
 
-exports.getAllAssetById = function(assetId, callback) {
-    //assetColl.find({_id: assetId}).toArray(function (err, result) {
+exports.createFile = function(assetObj, callback) {
+    //assetColl.insertOne(assetObj, function (err, result) {
     //    if (err) {
     //        callback(err);
     //    } else {
-    //        callback(null, result);
+    //        callback(err, result);
     //    }
     //});
 
-    callback(null, result);
+    callback(null, {});
 };
 
-exports.updateAsset = function(assetId, assetObj, callback) {
+exports.updateFolder = function(assetId, assetObj, callback) {
     //assetColl.update({_id:assetId}, assetObj).toArray(function (err, result){
     //    if(err) {
     //        callback(err);
@@ -58,10 +88,22 @@ exports.updateAsset = function(assetId, assetObj, callback) {
     //    }
     //});
 
-    callback(null, result);
+    callback(null, {});
 };
 
-exports.deleteAsset = function(assetId, callback) {
+exports.updateFile = function(assetId, assetObj, callback) {
+    //assetColl.update({_id:assetId}, assetObj).toArray(function (err, result){
+    //    if(err) {
+    //        callback(err);
+    //    } else {
+    //        callback(null, result);
+    //    }
+    //});
+
+    callback(null, {});
+};
+
+exports.deleteFolder = function(assetId, callback) {
     //assetColl.deleteOne({_id:assetId}).toArray(function (err, result) {
     //    if (err) {
     //        callback(err);
@@ -70,6 +112,17 @@ exports.deleteAsset = function(assetId, callback) {
     //    }
     //});
 
-    callback(null, result);
+    callback(null, {});
 };
 
+exports.deleteFile = function(assetId, callback) {
+    //assetColl.deleteOne({_id:assetId}).toArray(function (err, result) {
+    //    if (err) {
+    //        callback(err);
+    //    } else {
+    //        callback(null, result);
+    //    }
+    //});
+
+    callback(null, {});
+};

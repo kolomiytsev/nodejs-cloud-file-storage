@@ -3,13 +3,13 @@ var mongo = require('./db'),
 
 //user mongo scheme
 //{
-//“_id”: UUIDv4, required
-//“name”: {
-//“first”: String, required
-//    “last”: String, required
+//"_id": UUIDv4, required
+//"name": {
+//"first": String, required
+//"last": String, required
 //},
-//“email”: String, required
-//  “metadata”: Object, optional
+//"email": String, required
+//"metadata": Object, optional
 //}
 
 

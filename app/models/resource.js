@@ -10,7 +10,7 @@ exports.getCurrentState = function(callback) {
     //    }
     //});
 
-    callback(null, result);
+    callback(null, {});
 };
 
 exports.getQuotaById = function(resourceId, callback) {
@@ -22,7 +22,7 @@ exports.getQuotaById = function(resourceId, callback) {
     //    }
     //});
 
-    callback(null, result);
+    callback(null, {});
 };
 
 

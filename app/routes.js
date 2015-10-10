@@ -12,13 +12,16 @@ module.exports = function(app) {
     app.delete('/users/:id', userController.deleteUser);
 
 
-    //// asset routes ===========================================================
-    app.get('/asset', assetController.getAll);
-    app.post('/asset', assetController.createAsset);
+    // asset routes ===========================================================
+    app.get('/asset/folder/:id?', assetController.getFolder);
+    app.post('/asset/folder/:id?', assetController.createFolder);
+    app.patch('/asset/folder/:id', assetController.updateFolder);
+    app.delete('/asset/folder/:id', assetController.deleteFolder);
 
-    app.get('/asset/:id', assetController.getAsset);
-    app.patch('/asset/:id', assetController.updateAsset);
-    app.delete('/asset/:id', assetController.deleteAsset);
+    app.get('/asset/file/:id', assetController.getFile);
+    app.post('/asset/file/:folderId', assetController.createFile);
+    app.patch('/asset/file/:id', assetController.updateFile);
+    app.delete('/asset/file/:id', assetController.deleteFile);
 
 
     // resource routes ===========================================================
