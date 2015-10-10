@@ -24,15 +24,16 @@ mediaType: application/json
 
 /assets:
   description: folder structure
-  get:
-    description: get all assets
-  post:
-    description: create new asset
+  /folder/
+    get:
+      description: get root folder
+    post:
+      description: create new folder in root directory
   /folder/{folderId}:
     get:
       description: get one folder by its id
     post:
-      description: create new asset
+      description: create new folder
     put:
       description: change folder by its id
     delete:
@@ -44,6 +45,9 @@ mediaType: application/json
       description: change file by its id
     delete:
       description: delete file by its id
+  /file/{folderId}:
+    post:
+      description: create new file
 
 /resources:
   description: checking used resources
