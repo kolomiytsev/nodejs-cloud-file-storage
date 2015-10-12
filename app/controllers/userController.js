@@ -1,6 +1,7 @@
 var User = require('../models/user'),
     ObjectValidator = require('../../modules/validator'),
-    uuid = require('node-uuid');
+    uuid = require('node-uuid'),
+    logger = require('../models/logger');
 
 ObjectValidator.registerModel("userObj", {
     firstName: {type:"string", required: true},
@@ -13,8 +14,10 @@ ObjectValidator.registerModel("userId", {
 });
 
 exports.getAll = function(req, res, next) {
+    logger.info({model: 'User'},'Get all users from '+ req.url);
     var result = User.getAllUsers(function(err, result){
         if (err) {
+            logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
         } else if (result.length) {
@@ -26,6 +29,7 @@ exports.getAll = function(req, res, next) {
 };
 
 exports.createUser = function (req, res, next) {
+    logger.info({model: 'User'},'Create user '+ req.url);
     var userObj,
         ufirstName   = req.body.firstName,
         ulastName    = req.body.lastName,
@@ -34,6 +38,7 @@ exports.createUser = function (req, res, next) {
         validation   = ObjectValidator.validate('userObj', {firstName: ufirstName, lastName: ulastName, email: userEmail, metadata: userMeta});
 
     if (!validation) {
+        logger.warn({model: 'User'}, 'Validation error' + req.url + req.body);
         res.status(500);
         return next(new Error("Validation Error: check your data."));
     }
@@ -50,6 +55,7 @@ exports.createUser = function (req, res, next) {
 
     var result = User.createUser(userObj, function(err, result){
         if (err) {
+            logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
         } else if (result.length) {
@@ -61,16 +67,19 @@ exports.createUser = function (req, res, next) {
 };
 
 exports.getUser = function (req, res, next) {
+    logger.info({model: 'User'},'Get user by id '+ req.url);
     var userId = req.params.id,
         validation = ObjectValidator.validate('userId', {_id: userId});
 
     if (!validation) {
+        logger.warn({model: 'User'}, 'Validation error' + req.url + req.params.id);
         res.status(404);
         return next(new Error("Validation Error: invalid uuid."));
     }
 
     var result = User.getAllUserById(userId, function(err, result){
         if (err) {
+            logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
         } else if (result.length) {
@@ -82,6 +91,7 @@ exports.getUser = function (req, res, next) {
 };
 
 exports.updateUser = function (req, res, next) {
+    logger.info({model: 'User'},'Update user by id '+ req.url);
     var userId = req.params.id,
         validation = ObjectValidator.validate('userId', {_id: userId}),
         userObj,
@@ -92,10 +102,12 @@ exports.updateUser = function (req, res, next) {
         objValidation   = ObjectValidator.validate('userObj', {firstName: ufirstName, lastName: ulastName, email: userEmail, metadata: userMeta});
 
     if (!validation) {
+        logger.warn({model: 'User'}, 'Validation error' + req.url + req.params.id);
         res.status(404);
         return next(new Error("Validation Error: invalid uuid."));
     }
     if (!objValidation) {
+        logger.warn({model: 'User'}, 'Validation error' + req.url + req.body);
         res.status(500);
         return next(new Error("Validation Error: check your data."));
     }
@@ -112,6 +124,7 @@ exports.updateUser = function (req, res, next) {
 
     var result = User.updateUser(userId, userObj, function(err, result){
         if (err) {
+            logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
         } else if (result.length) {
@@ -123,16 +136,19 @@ exports.updateUser = function (req, res, next) {
 };
 
 exports.deleteUser = function (req, res, next) {
+    logger.info({model: 'User'},'Delete user by id '+ req.url + req.params.id);
     var userId = req.params.id,
         validation = ObjectValidator.validate('userId', {_id: userId});
 
     if (!validation) {
+        logger.warn({model: 'User'}, 'Validation error' + req.url);
         res.status(404);
         return next(new Error("Validation Error: invalid uuid."));
     }
 
     var result = User.deleteUser(userId, function(err, result){
         if (err) {
+            logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
         } else if (result.length) {
