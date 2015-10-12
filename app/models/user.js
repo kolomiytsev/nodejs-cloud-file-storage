@@ -45,7 +45,7 @@ exports.getAllUserById = function(userId, callback) {
 };
 
 exports.updateUser = function(userId, userObj, callback) {
-    userColl.update({_id:userId}, userObj).toArray(function (err, result){
+    userColl.update({_id:userId}, userObj, function (err, result){
         if(err) {
             callback(err);
         } else {
@@ -55,7 +55,7 @@ exports.updateUser = function(userId, userObj, callback) {
 };
 
 exports.deleteUser = function(userId, callback) {
-    userColl.deleteOne({_id:userId}).toArray(function (err, result) {
+    userColl.remove({_id:userId}, function (err, result) {
         if (err) {
             callback(err);
         } else {
@@ -63,4 +63,3 @@ exports.deleteUser = function(userId, callback) {
         }
     });
 };
-
