@@ -22,17 +22,18 @@ exports.getQuota = function (req, res, next) {
     var resourceId = req.params.id,
         validation = ObjectValidator.validate('resourceId', {_id: resourceId});
 
-        if (!validation) return next(new Error("Validation Error: invalid uuid."));
-
-        var result = Resource.getQuotaById(resourceId, function (err, result) {
-            if (err) {
-                return next(err);
-            } else if (result.length) {
-                res.send(result);
-            } else {
-                res.send('No document(s) found with defined criteria!');
-            }
-        });
-
+    if (!validation) {
+        res.status(500);
+        return next(new Error("Validation Error: invalid uuid."));
     }
+
+    var result = Resource.getQuotaById(resourceId, function (err, result) {
+        if (err) {
+            return next(err);
+        } else if (result.length) {
+            res.send(result);
+        } else {
+            res.send('No document(s) found with defined criteria!');
+        }
+    });
 };

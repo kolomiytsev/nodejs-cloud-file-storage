@@ -27,7 +27,10 @@ exports.getFolder = function (req, res, next) {
         var assetId = req.params.id,
             validation = ObjectValidator.validate('assetId', {_id: assetId});
 
-        if (!validation) return next(new Error("Validation Error: invalid uuid."));
+        if (!validation) {
+            res.status(404);
+            return next(new Error("Validation Error: invalid uuid."));
+        }
 
         var result = asset.getFolderById(assetId, function(err, result){
             if (err) {
@@ -45,7 +48,10 @@ exports.getFile = function (req, res, next) {
     var assetId = req.params.id,
         validation = ObjectValidator.validate('assetId', {_id: assetId});
 
-    if (!validation) return next(new Error("Validation Error: invalid uuid."));
+    if (!validation) {
+        res.status(404);
+        return next(new Error("Validation Error: invalid uuid."));
+    }
 
     var result = asset.getFileById(assetId, function(err, result){
         if (err) {
@@ -196,7 +202,10 @@ exports.deleteFolder = function (req, res, next) {
     var assetId = req.params.id,
         validation = ObjectValidator.validate('assetId', {_id: assetId});
 
-    if (!validation) return next(new Error("Validation Error: invalid uuid."));
+    if (!validation) {
+        res.status(500);
+        return next(new Error("Validation Error: invalid uuid."));
+    }
 
     //todo check if folder has documents
 
@@ -215,7 +224,10 @@ exports.deleteFile = function (req, res, next) {
     var assetId = req.params.id,
         validation = ObjectValidator.validate('assetId', {_id: assetId});
 
-    if (!validation) return next(new Error("Validation Error: invalid uuid."));
+    if (!validation) {
+        res.status(500);
+        return next(new Error("Validation Error: invalid uuid."));
+    }
 
     var result = asset.deleteFile(assetId, function(err, result){
         if (err) {
