@@ -5,21 +5,22 @@ var logger = bunyan.createLogger({
         {
             level: 'info',
             type: 'rotating-file',
-            path: '/infoLogger.log',
+            path: '../infoLogger.log',
             period: '2d'
         },
         {
             level: 'warn',
             type: 'rotating-file',
-            path: '/warnLogger.log',
+            path: '../warnLogger.log',
             period: '2d'
         },
         {
             level: 'error',
             type: 'rotating-file',
-            path: '/errorLogger.log',
+            path: '../errorLogger.log',
             period: '2d'
         }
-    ]});
+    ]}
+);
 
 module.exports = logger;
