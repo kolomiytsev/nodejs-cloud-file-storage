@@ -8,7 +8,7 @@ var mongo = require('./db'),
 //"path": String, required
 //"title": String, required
 //"rules": String
-//"parentId": UUIDv4 or null
+//"parent_id": UUIDv4 or null
 //"tags": Array, optional
 //"metadata": Object, optional
 //"created_at": Date
@@ -22,7 +22,7 @@ var mongo = require('./db'),
 //"size": Number, required
 //"title": String, required
 //"rules": String
-//"parentId": UUIDv4 or null
+//"parent_id": UUIDv4 or null
 //"tags": Array, optional
 //"metadata": Object, optional
 //"created_at": Date

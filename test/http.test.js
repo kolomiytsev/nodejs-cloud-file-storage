@@ -29,12 +29,12 @@ describe('Rest server tests', function () {
         it('should return text response for create user request', function (done) {
             this.request.post('/users/')
                 .send({firstName:'asdas' ,lastName:'asd' , email:'dsad@aasd.ua'  })
-                .expect(200)
+                .expect(201)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
                     }
-                    response.text.should.be.equal('No output for that operation');
+                    response.body.should.be.instanceof(Object);
                     done(null)
                 });
         });
@@ -51,27 +51,25 @@ describe('Rest server tests', function () {
                 });
         });
 
-        it('should return response 200 for update user by id request', function (done) {
-            this.request.patch('/users/'+uuid.v4())
+        it('should return response 204 for update user by id request', function (done) {
+            this.request.put('/users/'+uuid.v4())
                 .send({firstName:'asd' ,lastName:'asd' , email:'dsad@aasd.ua'  })
-                .expect(200)
+                .expect(204)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
                     }
-                    response.text.should.be.equal('No output for that operation');
                     done(null)
                 });
         });
 
-        it('should return response 200 for delete user by id request', function (done) {
+        it('should return response 204 for delete user by id request', function (done) {
             this.request.delete('/users/42b21c03-7859-4725-8696-1d74ae69e3dc')
-                .expect(200)
+                .expect(204)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
                     }
-                    response.text.should.be.equal('No output for that operation');
                     done(null)
                 });
         });
@@ -90,29 +88,29 @@ describe('Rest server tests', function () {
                 });
         });
 
-        it('should return response 500 with error details for create user request with invalid post data', function (done) {
+        it('should return response 400 with error details for create user request with invalid post data', function (done) {
             this.request.post('/users')
                 .send({ firstName:'asdas' })
-                .expect(500)
+                .expect(400)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
                     }
-                    response.status.should.be.equal(500);
+                    response.status.should.be.equal(400);
                     response.text.should.startWith('Error: Validation Error: check your data');
                     done(null)
                 });
         });
 
-        it('should return response 500 with error details for create user request with invalid post data', function (done) {
+        it('should return response 400 with error details for create user request with invalid post data', function (done) {
             this.request.post('/users')
                 .send('hello')
-                .expect(500)
+                .expect(400)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
                     }
-                    response.status.should.equal(500);
+                    response.status.should.equal(400);
                     response.text.should.startWith('Error: Validation Error: check your data');
                     done(null)
                 });
@@ -144,9 +142,9 @@ describe('Rest server tests', function () {
         });
 
         it('should return response 404 for update user by invalid id request', function (done) {
-            this.request.patch('/users/test')
+            this.request.put('/users/test')
                 .send({firstName:'asd' ,lastName:'asd' , email:'dsad@aasd.ua'  })
-                .expect(404)
+                .expect(409)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
@@ -157,10 +155,10 @@ describe('Rest server tests', function () {
                 });
         });
 
-        it('should return response 500 for update user by invalid id and invalid data request', function (done) {
-            this.request.patch('/users/'+uuid.v4())
+        it('should return response 409 for update user by invalid id and invalid data request', function (done) {
+            this.request.put('/users/'+uuid.v4())
                 .send({firstName:'asd' })
-                .expect(500)
+                .expect(409)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)

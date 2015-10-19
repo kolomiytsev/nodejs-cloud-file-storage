@@ -39,7 +39,7 @@ exports.createUser = function (req, res, next) {
 
     if (!validation) {
         logger.warn({model: 'User'}, 'Validation error' + req.url + req.body);
-        res.status(500);
+        res.status(400);
         return next(new Error("Validation Error: check your data."));
     }
 
@@ -58,10 +58,9 @@ exports.createUser = function (req, res, next) {
             logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
-        } else if (result.length) {
-            res.send('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
         } else {
-            res.send('No output for that operation');
+            res.status(201);
+            res.send(result.ops);
         }
     });
 };
@@ -103,12 +102,12 @@ exports.updateUser = function (req, res, next) {
 
     if (!validation) {
         logger.warn({model: 'User'}, 'Validation error' + req.url + req.params.id);
-        res.status(404);
+        res.status(409);
         return next(new Error("Validation Error: invalid uuid."));
     }
     if (!objValidation) {
         logger.warn({model: 'User'}, 'Validation error' + req.url + req.body);
-        res.status(500);
+        res.status(409);
         return next(new Error("Validation Error: check your data."));
     }
 
@@ -127,9 +126,8 @@ exports.updateUser = function (req, res, next) {
             logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
-        } else if (result.length) {
-            res.send(result);
         } else {
+            res.status(204);
             res.send('No output for that operation');
         }
     });
@@ -151,9 +149,8 @@ exports.deleteUser = function (req, res, next) {
             logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
-        } else if (result.length) {
-            res.send('Deleted %d documents in the "users" collection. Deleted document with "_id":', result.length, userId);
         } else {
+            res.status(204);
             res.send('No output for that operation');
         }
     });

@@ -25,7 +25,7 @@ exports.getAllUsers = function(callback) {
 };
 
 exports.createUser = function(userObj, callback) {
-    userColl.insertOne(userObj, function (err, result) {
+    userColl.insert(userObj, function (err, result) {
         if (err) {
             callback(err);
         } else {
