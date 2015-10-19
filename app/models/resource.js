@@ -1,5 +1,5 @@
 var mongo = require('./db'),
-    resourceColl = mongo.collection('resource');
+    resourceColl = mongo.collection('resources');
 
 exports.getCurrentState = function(callback) {
     //resourceColl.find().toArray(function(err, result) {

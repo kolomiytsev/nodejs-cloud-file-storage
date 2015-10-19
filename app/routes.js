@@ -13,18 +13,18 @@ module.exports = function(app) {
 
 
     // asset routes ===========================================================
-    app.get('/asset/folder/:id?', assetController.getFolder);
-    app.post('/asset/folder/:id?', assetController.createFolder);
-    app.patch('/asset/folder/:id', assetController.updateFolder);
-    app.delete('/asset/folder/:id', assetController.deleteFolder);
+    app.get('/assets/folders/:id?', assetController.getFolder);
+    app.post('/assets/folders/:id?', assetController.createFolder);
+    app.patch('/assets/folders/:id', assetController.updateFolder);
+    app.delete('/assets/folders/:id', assetController.deleteFolder);
 
-    app.get('/asset/file/:id', assetController.getFile);
-    app.post('/asset/file/:folderId', assetController.createFile);
-    app.patch('/asset/file/:id', assetController.updateFile);
-    app.delete('/asset/file/:id', assetController.deleteFile);
+    app.get('/assets/files/:id', assetController.getFile);
+    app.post('/assets/files/:folderId', assetController.createFile);
+    app.patch('/assets/files/:id', assetController.updateFile);
+    app.delete('/assets/files/:id', assetController.deleteFile);
 
 
     // resource routes ===========================================================
-    app.get('/resource', resourceController.getState);
-    app.get('/resource/:id', resourceController.getQuota);
+    app.get('/resources', resourceController.getState);
+    app.get('/resources/:id', resourceController.getQuota);
 };

@@ -24,12 +24,12 @@ mediaType: application/json
 
 /assets:
   description: folder structure
-  /folder/
+  /folders:
     get:
       description: get root folder
     post:
       description: create new folder in root directory
-  /folder/{folderId}:
+  /folders/{folderId}:
     get:
       description: get one folder by its id
     post:
@@ -38,14 +38,14 @@ mediaType: application/json
       description: change folder by its id
     delete:
       description: delete folder by its id
-  /file/{fileId}:
+  /files/{fileId}:
     get:
       description: get one file by its id
     put:
       description: change file by its id
     delete:
       description: delete file by its id
-  /file/{folderId}:
+  /files/{folderId}:
     post:
       description: create new file
 

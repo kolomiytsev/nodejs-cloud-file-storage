@@ -1,28 +1,33 @@
 var mongo = require('./db'),
     folderColl = mongo.collection('folders'),
-    filesColl = mongo.collection('files'),
-    relationsColl = mongo.collection('relations');
+    filesColl = mongo.collection('files');
 
 //Folder scheme
 //{
 //"_id": UUIDv4, required
-//"type": String, required
+//"path": String, required
 //"title": String, required
-//"tag": Array, optional
+//"rules": String
+//"parentId": UUIDv4 or null
+//"tags": Array, optional
 //"metadata": Object, optional
+//"created_at": Date
+//"updated_at": Date
+//"deleted_at": Date
 //}
 //File scheme
 //{
 //"_id": UUIDv4, required
-//"type": String, required
+//"path": String, required
+//"size": Number, required
 //"title": String, required
-//"tag": Array, optional
+//"rules": String
+//"parentId": UUIDv4 or null
+//"tags": Array, optional
 //"metadata": Object, optional
-//}
-//Relation scheme
-//{
-//"sourceId": UUIDv4, required
-//"targetId": UUIDv4, required
+//"created_at": Date
+//"updated_at": Date
+//"deleted_at": Date
 //}
 
 exports.getRootFolder = function(callback) {
