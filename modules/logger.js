@@ -4,9 +4,7 @@ var logger = bunyan.createLogger({
     streams: [
         {
             level: 'info',
-            type: 'rotating-file',
-            path: '../infoLogger.log',
-            period: '2d'
+            stream: process.stdout
         },
         {
             level: 'warn',

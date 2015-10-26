@@ -1,4 +1,4 @@
-var mongo = require('./db'),
+var mongo = require('../../modules/db'),
     userColl = mongo.collection('users');
 
 //user mongo scheme
@@ -14,12 +14,12 @@ var mongo = require('./db'),
 
 
 exports.getAllUsers = function(callback) {
-    userColl.find().toArray(function(err, result) {
+    userColl.find().limit(100).toArray(function(err, result) {
         if (err) {
             callback(err);
-        } else {
-            callback(null, result);
         }
+
+        callback(null, result);
     });
 
 };
@@ -28,9 +28,9 @@ exports.createUser = function(userObj, callback) {
     userColl.insert(userObj, function (err, result) {
         if (err) {
             callback(err);
-        } else {
-            callback(err, result);
         }
+
+        callback(err, result);
     });
 };
 
@@ -38,9 +38,9 @@ exports.getAllUserById = function(userId, callback) {
     userColl.find({_id: userId}).toArray(function (err, result) {
         if (err) {
             callback(err);
-        } else {
-            callback(null, result);
         }
+
+        callback(null, result);
     });
 };
 
@@ -48,9 +48,9 @@ exports.updateUser = function(userId, userObj, callback) {
     userColl.update({_id:userId}, userObj, function (err, result){
         if(err) {
             callback(err);
-        } else {
-            callback(null, result);
         }
+
+        callback(null, result);
     });
 };
 
@@ -58,8 +58,8 @@ exports.deleteUser = function(userId, callback) {
     userColl.remove({_id:userId}, function (err, result) {
         if (err) {
             callback(err);
-        } else {
-            callback(null, result);
         }
+
+        callback(null, result);
     });
 };

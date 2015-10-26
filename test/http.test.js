@@ -116,9 +116,9 @@ describe('Rest server tests', function () {
                 });
         });
 
-        it('should return response 404 with error details for get user by invalid id request', function (done) {
+        it('should return response 400 with error details for get user by invalid id request', function (done) {
             this.request.get('/users/test')
-                .expect(404)
+                .expect(400)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
@@ -141,10 +141,10 @@ describe('Rest server tests', function () {
                 });
         });
 
-        it('should return response 404 for update user by invalid id request', function (done) {
+        it('should return response 400 for update user by invalid id request', function (done) {
             this.request.put('/users/test')
                 .send({firstName:'asd' ,lastName:'asd' , email:'dsad@aasd.ua'  })
-                .expect(409)
+                .expect(400)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
@@ -155,10 +155,10 @@ describe('Rest server tests', function () {
                 });
         });
 
-        it('should return response 409 for update user by invalid id and invalid data request', function (done) {
+        it('should return response 400 for update user by invalid id and invalid data request', function (done) {
             this.request.put('/users/'+uuid.v4())
                 .send({firstName:'asd' })
-                .expect(409)
+                .expect(400)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)
@@ -171,7 +171,7 @@ describe('Rest server tests', function () {
 
         it('should return response 404 for delete user by invalid id request', function (done) {
             this.request.delete('/users/test')
-                .expect(404)
+                .expect(400)
                 .end(function (err, response) {
                     if (err) {
                         return done(err)

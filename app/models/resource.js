@@ -1,4 +1,4 @@
-var mongo = require('./db'),
+var mongo = require('../../modules/db'),
     resourceColl = mongo.collection('resources');
 
 exports.getCurrentState = function(callback) {

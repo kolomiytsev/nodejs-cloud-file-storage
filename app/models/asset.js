@@ -1,4 +1,4 @@
-var mongo = require('./db'),
+var mongo = require('../../modules/db'),
     folderColl = mongo.collection('folders'),
     filesColl = mongo.collection('files');
 

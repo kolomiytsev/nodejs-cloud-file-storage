@@ -6,11 +6,12 @@
     "mongodb": "~2.0",
     "body-parser": "~1.4.2",
     "node-uuid": "~1.4.0",
-    "bunyan": "*"
+    "bunyan": "~1.5.1",
+    "aws-sdk": "~2.2.11"
   },
   "devDependencies": {
-    "mocha": "*",
-    "should": "*",
+    "mocha": "~2.3.3",
+    "should": "~7.1.1",
     "supertest": "~1.1.0"
   }
 }

@@ -1,7 +1,8 @@
 var User = require('../models/user'),
     ObjectValidator = require('../../modules/validator'),
     uuid = require('node-uuid'),
-    logger = require('../models/logger');
+    logger = require('../../modules/logger'),
+    util = require('util');
 
 ObjectValidator.registerModel("userObj", {
     firstName: {type:"string", required: true},
@@ -45,10 +46,8 @@ exports.createUser = function (req, res, next) {
 
     userObj = {
         _id: uuid.v4(),
-        name: {
-            first: ufirstName,
-            last: ulastName
-        },
+        firstName: ufirstName,
+        lastName: ulastName,
         email: userEmail,
         metadata: userMeta
     };
@@ -58,10 +57,11 @@ exports.createUser = function (req, res, next) {
             logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
-        } else {
-            res.status(201);
-            res.send(result.ops);
         }
+
+        res.status(201);
+        res.location(util.format("users/%s", result.insertedIds[0]));
+        res.send(result.ops);
     });
 };
 
@@ -72,7 +72,7 @@ exports.getUser = function (req, res, next) {
 
     if (!validation) {
         logger.warn({model: 'User'}, 'Validation error' + req.url + req.params.id);
-        res.status(404);
+        res.status(400);
         return next(new Error("Validation Error: invalid uuid."));
     }
 
@@ -102,21 +102,19 @@ exports.updateUser = function (req, res, next) {
 
     if (!validation) {
         logger.warn({model: 'User'}, 'Validation error' + req.url + req.params.id);
-        res.status(409);
+        res.status(400);
         return next(new Error("Validation Error: invalid uuid."));
     }
     if (!objValidation) {
         logger.warn({model: 'User'}, 'Validation error' + req.url + req.body);
-        res.status(409);
+        res.status(400);
         return next(new Error("Validation Error: check your data."));
     }
 
     userObj = {
         _id: userId,
-        name: {
-            first: ufirstName,
-            last: ulastName
-        },
+        firstName: ufirstName,
+        lastName: ulastName,
         email: userEmail,
         metadata: userMeta
     };
@@ -126,10 +124,10 @@ exports.updateUser = function (req, res, next) {
             logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
-        } else {
-            res.status(204);
-            res.send('No output for that operation');
         }
+
+        res.status(204);
+        res.send('No output for that operation');
     });
 };
 
@@ -140,7 +138,7 @@ exports.deleteUser = function (req, res, next) {
 
     if (!validation) {
         logger.warn({model: 'User'}, 'Validation error' + req.url);
-        res.status(404);
+        res.status(400);
         return next(new Error("Validation Error: invalid uuid."));
     }
 
@@ -149,9 +147,9 @@ exports.deleteUser = function (req, res, next) {
             logger.error({model: 'User'}, 'DB error' + req.url + err);
             res.status(500);
             return next(err);
-        } else {
-            res.status(204);
-            res.send('No output for that operation');
         }
+
+        res.status(204);
+        res.send('No output for that operation');
     });
 };
