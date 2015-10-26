@@ -10,6 +10,10 @@ if (!process.env.dbUrl) {
 }
 var dbUrl = process.env.dbUrl;
 
+if (!process.env.AwsAccessKeyId || !process.env.AwsSecretAccessKey) {
+    throw new Error('Please, specify variable AwsAccessKeyId and AwsSecretAccessKey in your local environment');
+}
+
 // app
 var app = express();
 
