@@ -34,6 +34,20 @@ exports.getAllAssets = function(callback) {
 
 };
 
+exports.getCurrentState = function (callback) {
+
+
+};
+
+exports.getQuota() = function (callback) {
+
+
+};
+
+exports.getQuotaById = function (callback) {
+
+
+};
 function toClient(data) {
     var result = lodash.forEach(data, function(item){
         item.id = item._id;

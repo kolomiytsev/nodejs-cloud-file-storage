@@ -16,6 +16,7 @@ module.exports = function(app) {
     app.get('/assets', assetController.getAll);
 
     // resource routes ===========================================================
-    app.get('/resources', resourceController.getState);
-    app.get('/resources/:id', resourceController.getQuota);
+    app.get('/resources', assetController.getState);
+    app.get('/resources/quota', assetController.getQuota);
+    app.get('/resources/quota/:id', assetController.getQuotaById);
 };
