@@ -13,16 +13,7 @@ module.exports = function(app) {
 
 
     // asset routes ===========================================================
-    app.get('/assets/folders/:id?', assetController.getFolder);
-    app.post('/assets/folders/:id?', assetController.createFolder);
-    app.put('/assets/folders/:id', assetController.updateFolder);
-    app.delete('/assets/folders/:id', assetController.deleteFolder);
-
-    app.get('/assets/files/:id', assetController.getFile);
-    app.post('/assets/files/:folderId', assetController.createFile);
-    app.put('/assets/files/:id', assetController.updateFile);
-    app.delete('/assets/files/:id', assetController.deleteFile);
-
+    app.get('/assets', assetController.getAll);
 
     // resource routes ===========================================================
     app.get('/resources', resourceController.getState);
