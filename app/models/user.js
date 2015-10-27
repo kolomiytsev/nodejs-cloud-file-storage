@@ -1,5 +1,6 @@
 var mongo = require('../../modules/db'),
-    userColl = mongo.collection('users');
+    userColl = mongo.collection('users'),
+    lodash = require('lodash');
 
 //user mongo scheme
 //{
@@ -19,7 +20,7 @@ exports.getAllUsers = function(callback) {
             callback(err);
         }
 
-        callback(null, result);
+        callback(null, toClient(result));
     });
 
 };
@@ -30,7 +31,7 @@ exports.createUser = function(userObj, callback) {
             callback(err);
         }
 
-        callback(err, result);
+        callback(err, toClient(result.ops));
     });
 };
 
@@ -40,7 +41,7 @@ exports.getAllUserById = function(userId, callback) {
             callback(err);
         }
 
-        callback(null, result);
+        callback(null, toClient(result));
     });
 };
 
@@ -63,3 +64,12 @@ exports.deleteUser = function(userId, callback) {
         callback(null, result);
     });
 };
+
+function toClient(data) {
+    var result = lodash.forEach(data, function(item){
+        item.id = item._id;
+        delete item._id;
+        return item;
+    });
+    return result;
+}

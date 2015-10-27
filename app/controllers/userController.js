@@ -60,8 +60,8 @@ exports.createUser = function (req, res, next) {
         }
 
         res.status(201);
-        res.location(util.format("users/%s", result.insertedIds[0]));
-        res.send(result.ops);
+        res.location(util.format("users/%s", result[0].id));
+        res.send(result);
     });
 };
 
